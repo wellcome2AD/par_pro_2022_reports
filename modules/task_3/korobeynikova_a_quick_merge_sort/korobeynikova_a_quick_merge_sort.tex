@@ -1,0 +1,1127 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\date{}
+
+\begin{document}
+
+\protect\hypertarget{_Toc27872035}{}{\protect\hypertarget{_Toc27835135}{}{\protect\hypertarget{_Toc27873356}{}{\protect\hypertarget{_Toc27873255}{}{\protect\hypertarget{_Toc27834939}{}{}}}}}МИНИСТЕРСТВО
+ОБРАЗОВАНИЯ И НАУКИ\\
+РОССИЙСКОЙ ФЕДЕРАЦИИ
+
+Федеральное государственное автономное образовательное учреждение
+высшего образования\\
+\textbf{«Национальный исследовательский\\
+Нижегородский государственный университет им. Н.И. Лобачевского»}
+
+\textbf{(ННГУ)}
+
+\protect\hypertarget{_Toc27872036}{}{\protect\hypertarget{_Toc27834940}{}{\protect\hypertarget{_Toc27873256}{}{\protect\hypertarget{_Toc27873357}{}{\protect\hypertarget{_Toc27835136}{}{}}}}}\textbf{Институт
+информационных технологий, математики и механики}
+
+\protect\hypertarget{_Toc27835138}{}{\protect\hypertarget{_Toc27873258}{}{\protect\hypertarget{_Toc27834942}{}{\protect\hypertarget{_Toc27873359}{}{\protect\hypertarget{_Toc27872038}{}{}}}}}Направление
+подготовки: «Программная инженерия»
+
+\protect\hypertarget{_Toc27834943}{}{\protect\hypertarget{_Toc27872039}{}{\protect\hypertarget{_Toc27835139}{}{\protect\hypertarget{_Toc27873360}{}{\protect\hypertarget{_Toc27873259}{}{}}}}}
+
+\textbf{ОТЧЁТ}
+
+по лабораторной работе
+
+\textbf{РЕАЛИЗАЦИЯ АЛГОРИТМА БЫСТРОЙ СОРТИРОВКИ С ПРОСТЫМ СЛИЯНИЕМ}
+
+\begin{quote}
+\protect\hypertarget{_Toc27872040}{}{\protect\hypertarget{_Toc27873361}{}{\protect\hypertarget{_Toc27873260}{}{\protect\hypertarget{_Toc27834944}{}{\protect\hypertarget{_Toc27835140}{}{}}}}}
+\end{quote}
+
+\textbf{Выполнила:} студентка группы
+
+\begin{quote}
+382008-1
+
+\_\_\emph{\_А.Д. Коробейникова \_\_\_\_\_\_\_}
+
+Подпись
+
+\protect\hypertarget{_Toc27872041}{}{\protect\hypertarget{_Toc27873261}{}{\protect\hypertarget{_Toc27835141}{}{\protect\hypertarget{_Toc27873362}{}{\protect\hypertarget{_Toc27834945}{}{}}}}}\textbf{Проверил:}
+м.н.с.
+
+\_\_\emph{\_А.Ю. Нестеров}\_\_\_\_\_\_\_\_
+
+Подпись
+\end{quote}
+
+Нижний Новгород\\
+2022 г.
+
+\subsection{Содержание}\label{ux441ux43eux434ux435ux440ux436ux430ux43dux438ux435}
+
+\emph{1. Введение} 3
+
+\emph{2. Постановка задачи} 4
+
+\emph{3. Описание алгоритмА} 5
+
+\emph{4. Описание СХЕМЫ РАСПАРАЛЛЕЛИВАНИЯ} 7
+
+\emph{5. Описание MPI-версии} 9
+
+\emph{6. Результаты ЭКСПЕРИМЕНТОВ} 12
+
+\emph{7. ВЫВОДЫ ИЗ РЕЗУЛЬТАТОВ} 13
+
+\emph{8. Заключение} 14
+
+\emph{9. Литература} 15
+
+\emph{10. Приложение} 16
+
+\textbf{1. Введение}
+
+Message Passing Interface (MPI, интерфейс передачи сообщений) ---
+программный интерфейс (API) для передачи информации, который позволяет
+обмениваться сообщениями между процессами, выполняющими одну задачу. MPI
+является наиболее распространённым стандартом интерфейса обмена данными
+в параллельном программировании. Основным средством коммуникации между
+процессами в MPI является передача сообщений друг другу. В этой работе
+используется реализация MPI для языка программирования C++.
+
+\textbf{\\
+}
+
+\subsection{\texorpdfstring{\textbf{Постановка
+задачи}}{Постановка задачи}}\label{ux43fux43eux441ux442ux430ux43dux43eux432ux43aux430-ux437ux430ux434ux430ux447ux438}
+
+Необходимо реализовать алгоритм быстрой сортировки с простым слиянием на
+языке C++, используя MPI. Данные для сортировки хранятся в одномерном
+массиве. Результатом работы является программа, которая должна корректно
+параллельно выполняться на нескольких процессах, а также набор тестов
+(не менее пяти), проверяющих работу этой программы. В процессе
+выполнения лабораторной работы требуется использовать систему контроля
+версий {[}Git{]}{[}git{]} и фрэймворк для разработки автоматических
+тестов {[}Google Test{]}{[}gtest{]}.
+
+Выполнение работы предполагает решение следующих задач:
+
+\begin{itemize}
+\item
+  реализация алгоритма сортировки, который будут выполнять процессы,
+
+  \begin{itemize}
+  \item
+    \begin{quote}
+    реализация алгоритма планирования для распределения данных между
+    процессами,
+    \end{quote}
+  \end{itemize}
+\item
+  разработка тестов для проверки работоспособности алгоритма,
+\item
+  грамотная работа с системой контроля версий, выполненная по инструкции
+  из репозитория. Результатом должны быть четыре файла: CMakeLists.txt,
+  main.cpp, quick\_merge\_sort.h и quick\_merge\_sort.cpp.
+
+  \textbf{\\
+  }
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Описание
+алгоритма}}{Описание алгоритма}}\label{ux43eux43fux438ux441ux430ux43dux438ux435-ux430ux43bux433ux43eux440ux438ux442ux43cux430}
+
+Алгоритм работы программы:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Формирование данных для сортировки.
+\item
+  Распределение данных между всеми процессами (для этого - реализовать
+  алгоритм планирования).
+\item
+  Работа каждого отдельного процесса:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    \begin{quote}
+    сортировка данных алгоритмом быстрой сортировки, полученных при
+    распределении между процессами;
+    \end{quote}
+  \item
+    \begin{quote}
+    отправка данных процессу, который занимается приёмом и последующим
+    слиянием данных.
+    \end{quote}
+  \end{enumerate}
+\item
+  Выполнение сортировки данных на одном процессе.
+\item
+  Сравнение результатов работы параллельной сортировки данных с
+  результатом работы последовательной сортировки.
+\end{enumerate}
+
+Алгоритм планирования занимается подсчётом размера данных (количество
+элементов массива), которые достаются каждому отдельному процессу. Пусть
+имеется n элементов и m процессов, среди которых нужно распределить эти
+элементы, а количество этих элементов будет записываться в одномерный
+массив с названием elements\_per\_proc размером m, каждый номер ячейки
+которого совпадает с номером процесса. Алгоритм на псевдокоде:
+
+remained\_elements = n mod m;
+
+цикл от proc\_number := 0 до m {[}шаг 1{]}
+
+elements\_per\_proc{[}proc\_number{]} := n div m;
+
+если (remained\_elements \textgreater{} 0)
+
+то
+
+elements\_per\_proc{[}proc\_number{]} :=
+elements\_per\_proc{[}proc\_number{]} + 1;
+
+remained\_elements := remained\_elements - 1;
+
+всё-если
+
+всё-цикл
+
+В результате работы этого алгоритма массив elements\_per\_proc будет
+содержать количество элементов, которое нужно будет отсортировать
+процессу с номером таким же, что и номер ячейки этого массива.
+
+Описание алгоритма быстрой сортировки здесь приведено не будет, так же,
+как и алгоритма слияния, так как я воспользовалась стандартной
+реализацией std::sort() из STL и std::merge() из
+\textless{}algorithm\textgreater{}. std::sort() реализует быструю
+сортировку, а std::merge() - выполняет слияние двух отсортированных
+массивов.
+
+\textbf{\\
+}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Описание схемы распараллеливания}
+\end{enumerate}
+
+Рисунок 1 содержит условную схему распараллеливания. Эта схема описывает
+работу функции parallelSort(), которая принимает на вход данные для
+сортировки и возвращает их копию, отсортированную в порядке возрастания.
+Стоит упомянуть, что каждый процесс, кроме процесса с номером 0,
+возвращает лишь часть данных, которая досталась ему в результате
+распределения. Процесс с номером 0 возвращает полный объём данных,
+переданных в функцию (так как именно этот процесс занимается
+распределением и сбором данных). Следовательно, в вызывающем коде
+решением задачи будет значение parallelSort(), который вернётся в
+результате выполнения этой функции на нулевом процессе.
+
+\includegraphics[width=5.29861in,height=5.19861in]{media/image1.png}
+
+Рис. 1
+
+Шаг 1: заполнение массива elements\_to\_sort с количеством элемента для
+каждого процесса.
+
+Шаг 2: вызов функции, определяющей номер текущего процесса.
+
+Шаг 3: создание пустого массива array\_to\_sort, который позже будет
+заполнен.
+
+Шаг 4 (если текущий процесс имеет номер 0): процесс инициализирует свой
+массив для сортировки array\_to\_sort из исходного (берёт столько
+элементов, сколько написано в elements\_to\_sort{[}0{]}); затем в цикле
+формирует для каждого процесса proc\_num (кроме 0) массив, который нужно
+сортировать ему, и отправляет каждому процессу его массив.
+
+Шаг 4 (если текущий процесс имеет номер не 0): процесс принимает от
+нулевого процесса данные в array\_to\_sort данные размером
+elements\_to\_sort{[}proc\_rank{]}.
+
+Шаг 5: сортировка данных.
+
+Шаг 6 (если текущий процесс имеет номер 0): процесс в цикле создаёт
+временный буфер для принимаемых данных; принимает в этот буфер данные от
+каждого процесса; сливает все пришедшие и собственные отсортированные
+данные в один массив; присваивает новое значение array\_to\_sort.
+
+Шаг 6 (если текущий процесс имеет номер не 0): процесс отправляет свои
+отсортированные данные процессу 0.
+
+Шаг 7: функция возвращает значение array\_to\_sort.\textbf{\\
+}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Описание MPI-версии}
+\end{enumerate}
+
+Получение количества процессов: int MPI\_Comm\_size(MPI\_Comm comm, int
+*size), где comm - коммуникатор, size - переменная, куда запишется
+количество процессов. Я использую глобальный коммуникатор
+MPI\_COMM\_WORLD.
+
+Получение номера процесса: int MPI\_Comm\_rank(MPI\_Comm comm, int
+*rank), где comm - коммуникатор, rank - переменная, куда запишется
+номера процесса.
+
+Отправка данных с помощью MPI может выполняться функцией MPI\_Send().
+Это блокирующая операция отправки данных одному конкретному процессу.
+Описание функции: int MPI\_Send(const void *buf, int count,
+MPI\_Datatype datatype, int dest, int tag, MPI\_Comm comm), где
+
+\begin{itemize}
+\item
+  buf - адрес буфера отправки
+\item
+  count - количество элементов из буфера отправки для передачи
+\item
+  datatype - тип посылаемых элементов (специальный тип MPI\_Datatype)
+\item
+  dest - номер процесса-получателя
+\item
+  tag - тэг сообщения (если отсутствует, равен 0)
+\item
+  comm - коммуникатор, в котором находится процесс получатель
+\end{itemize}
+
+Отправка данных на шаге 4 из нулевого процесса осуществляется в цикле по
+всем номерам процессов (начиная с 1) таким вызовом MPI\_Send:
+
+MPI\_Send(\&global\_array{[}elems\_to\_skip{]},
+elements\_to\_sort{[}proc\_num{]}, MPI\_INT, proc\_num, 0,
+MPI\_COMM\_WORLD);
+
+\begin{itemize}
+\item
+  global\_array - массив данных, пришедших на вход функции
+  parallelSort()
+\item
+  elems\_to\_skip - сдвиг по массиву, который осуществляется после
+  посылки предыдущему процессу. Это значение вычисляется на каждой
+  итерации цикла по формуле:
+  \(elems\_ to\_ skip\  + = \ elements\_ to\_ sort\lbrack proc\_ num\rbrack\)
+\item
+  elements\_to\_sort{[}proc\_num{]} - ячейка массива elements\_to\_sort,
+  содержащая количество элементов, который должен отсортировать
+  proc\_num
+\item
+  proc\_num - переменная, по которой итерируется цикл
+\end{itemize}
+
+Отправка данных на шаге 6 из ненулевого процесса:
+MPI\_Send(array\_to\_sort, elements\_to\_sort{[}proc\_rank{]}, MPI\_INT,
+0, 0, MPI\_COMM\_WORLD).
+
+Получение данных в MPI осуществляется через функцию MPI\_Recv(). Это
+блокирующая операция приёма данных от одного процесса. Описание функции:
+int MPI\_Recv(void *buf, int count, MPI\_Datatype datatype, int source,
+int tag, MPI\_Comm comm, MPI\_Status *status), где
+
+\begin{itemize}
+\item
+  buf - адрес буфера, в который будут записаны полученные данные
+\item
+  count - количество элементов, которое должно быть принято
+\item
+  datatype - тип получаемых элементов (специальный тип MPI\_Datatype)
+\item
+  source - номер процесса-отправителя
+\item
+  tag - тэг сообщения (если отсутствует, равен 0)
+\item
+  comm - коммуникатор, в котором находится процесс отправитель
+\item
+  status - переменная специального типа, в которую будет записана
+  информация о прохождении вызова (успех операции и др.)
+\end{itemize}
+
+Получение данных на шаге 4 в ненулевом процессе:
+MPI\_Recv(array\_to\_sort, elements\_to\_sort{[}rank{]}, MPI\_INT, 0, 0,
+MPI\_COMM\_WORLD, \&status).
+
+Получение данных на шаге 6 в нулевом процессе осуществляется в цикле по
+всем номерам процессов (начиная с 1):
+MPI\_Recv(ptr\_queue.back()-\textgreater{}data(),
+elements\_to\_sort{[}proc\_num{]}, MPI\_INT, proc, 0, MPI\_COMM\_WORLD,
+\&status), где
+
+\begin{itemize}
+\item
+  ptr\_queue - очередь std::queue, содержащая указатели на массивы. В
+  эти массивы записываются пришедшие данные
+\item
+  proc\_num - переменная, по которой итерируется цикл
+\end{itemize}
+
+\textbf{\\
+}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Результаты экспериментов}
+\end{enumerate}
+
+С помощью MPI\_Wtime() можно засечь время выполнения.
+
+Я тестирую работу своей программы на следующих данных: количество
+процессов меняется от 1 до 8; процессы исполняют одни и те же пять
+тестов: сортируют 17, 30, 149, 991 и 100000 элементов. Таблица ниже
+содержит результаты выполнения этих тестов.
+
+\begin{longtable}[]{@{}lllllllll@{}}
+\toprule
+Кол-во процессов
+
+Кол-во
+
+элементов & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\tabularnewline
+17 & 5.58001e-05 & 0.000546 & 0.0005821 & 0.0006664 & 0.0008424 &
+0.0009198 & 0.0017931 & 0.0018604\tabularnewline
+30 & 3.39e-05 & 0.0001224 & 8.09e-05 & 0.0001157 & 0.0001483 & 0.000211
+& 0.0001384 & 0.0002085\tabularnewline
+149 & 5.69e-05 & 0.0001067 & 0.0001434 & 0.0001289 & 0.0001455 &
+0.0001853 & 0.0001579 & 0.0001928\tabularnewline
+991 & 0.0002998 & 0.0003639 & 0.0002996 & 0.0002323 & 0.0003774 &
+0.0003755 & 0.0003766 & 0.0004862\tabularnewline
+100000 & 0.0247257 & 0.0167032 & 0.0179571 & 0.0140793 & 0.0148861 &
+0.0167483 & 0.0136261 & 0.0150003\tabularnewline
+\bottomrule
+\end{longtable}
+
+На пересечении строки и столбца находится время сортировки в секундах
+данного количества элементов данным количеством процессов.
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+Кол-во элементов & 17 & 30 & 149 & 991 & 100000\tabularnewline
+Время & 7.79994e-06 & 1.05001e-05 & 5.42001e-05 & 0.0002747 &
+0.0238914\tabularnewline
+\bottomrule
+\end{longtable}
+
+Время сортировки, выполненной на одном процессе с помощью std::sort().
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Выводы из результатов}
+\end{enumerate}
+
+Параллельная программа работает гораздо медленнее последовательной при
+небольших данных (меньше 100000, как видно из таблиц) и быстрее
+последовательной (примерно в 2 раза) при больших данных. Это происходит
+из-за накладных расходов на переключение между процессами и передачи
+данных между процессами.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Заключение}
+\end{enumerate}
+
+В ходе данной лабораторной работы мною были описаны следующие алгоритмы:
+распараллеливание быстрой сортировки слиянием одномерного массива и
+планирование количества обрабатываемых данных для каждого массива.
+Реализована эта работа на языке C++ с использованием MPI.
+
+В заключении стоит, наверное, отметить, что данная работа позволила
+самостоятельно разобраться, как использовать параллелизм на уровне
+процессов, а также рассмотреть реализацию MPI для C++.
+
+\textbf{\\
+}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Литература}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \begin{quote}
+  Википедия: сайт. --- URL:
+  \emph{https://ru.wikipedia.org/wiki/Message\_Passing\_Interface} (дата
+  обращения: 24.12.2022). --- Текст: электронный.
+  \end{quote}
+\item
+  \begin{quote}
+  MPICH.org: сайт --- URL:
+  \emph{https://www.mpich.org/static/docs/latest/www3/MPI\_Comm\_size.html}
+  (дата обращения: 24.12.2022). --- Текст: электронный.
+  \end{quote}
+\item
+  \begin{quote}
+  MPICH.org: сайт --- URL:
+  \emph{https://www.mpich.org/static/docs/latest/www3/MPI\_Comm\_rank.html}
+  (дата обращения: 24.12.2022). --- Текст: электронный.
+  \end{quote}
+\item
+  \begin{quote}
+  MPICH.org: сайт --- URL:
+  \emph{https://www.mpich.org/static/docs/latest/www3/MPI\_Send.html}
+  (дата обращения: 24.12.2022). --- Текст: электронный.
+  \end{quote}
+\item
+  \begin{quote}
+  MPICH.org: сайт --- URL:
+  \emph{https://www.mpich.org/static/docs/latest/www3/MPI\_Recv.html}
+  (дата обращения: 24.12.2022). --- Текст: электронный.
+  \end{quote}
+\item
+  \begin{quote}
+  MPICH.org: сайт --- URL:
+  \emph{https://www.mpich.org/static/docs/latest/www3/MPI\_Wtime.html}
+  (дата обращения: 24.12.2022). --- Текст: электронный.
+  \end{quote}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Приложение}
+
+  Файл CMakeLists.txt:
+\end{enumerate}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+& get\_filename\_component(ProjectId \$\{CMAKE\_CURRENT\_SOURCE\_DIR\}
+NAME)\tabularnewline
+& enable\_testing()\tabularnewline
+&\tabularnewline
+& if( USE\_MPI )\tabularnewline
+& if( UNIX )\tabularnewline
+& set(CMAKE\_C\_FLAGS "\$\{CMAKE\_CXX\_FLAGS\}
+-Wno-uninitialized")\tabularnewline
+& set(CMAKE\_CXX\_FLAGS "\$\{CMAKE\_CXX\_FLAGS\}
+-Wno-uninitialized")\tabularnewline
+& endif( UNIX )\tabularnewline
+&\tabularnewline
+& set(ProjectId "\$\{ProjectId\}\_mpi")\tabularnewline
+& project( \$\{ProjectId\} )\tabularnewline
+& message( STATUS "-\/- " \$\{ProjectId\} )\tabularnewline
+&\tabularnewline
+& file(GLOB\_RECURSE ALL\_SOURCE\_FILES *.cpp *.h)\tabularnewline
+&\tabularnewline
+& set(PACK\_LIB "\$\{ProjectId\}\_lib")\tabularnewline
+& add\_library(\$\{PACK\_LIB\} STATIC \$\{ALL\_SOURCE\_FILES\}
+)\tabularnewline
+&\tabularnewline
+& add\_executable( \$\{ProjectId\} \$\{ALL\_SOURCE\_FILES\}
+)\tabularnewline
+&\tabularnewline
+& target\_link\_libraries(\$\{ProjectId\}
+\$\{PACK\_LIB\})\tabularnewline
+& if( MPI\_COMPILE\_FLAGS )\tabularnewline
+& set\_target\_properties( \$\{ProjectId\} PROPERTIES COMPILE\_FLAGS
+"\$\{MPI\_COMPILE\_FLAGS\}" )\tabularnewline
+& endif( MPI\_COMPILE\_FLAGS )\tabularnewline
+&\tabularnewline
+& if( MPI\_LINK\_FLAGS )\tabularnewline
+& set\_target\_properties( \$\{ProjectId\} PROPERTIES LINK\_FLAGS
+"\$\{MPI\_LINK\_FLAGS\}" )\tabularnewline
+& endif( MPI\_LINK\_FLAGS )\tabularnewline
+& target\_link\_libraries( \$\{ProjectId\} \$\{MPI\_LIBRARIES\}
+)\tabularnewline
+& target\_link\_libraries(\$\{ProjectId\} gtest
+gtest\_main)\tabularnewline
+&\tabularnewline
+& enable\_testing()\tabularnewline
+& add\_test(NAME \$\{ProjectId\} COMMAND \$\{ProjectId\})\tabularnewline
+&\tabularnewline
+& if( UNIX )\tabularnewline
+& foreach (SOURCE\_FILE \$\{ALL\_SOURCE\_FILES\})\tabularnewline
+& string(FIND \$\{SOURCE\_FILE\} \$\{PROJECT\_BINARY\_DIR\}
+PROJECT\_TRDPARTY\_DIR\_FOUND)\tabularnewline
+& if (NOT \$\{PROJECT\_TRDPARTY\_DIR\_FOUND\} EQUAL -1)\tabularnewline
+& list(REMOVE\_ITEM ALL\_SOURCE\_FILES
+\$\{SOURCE\_FILE\})\tabularnewline
+& endif ()\tabularnewline
+& endforeach ()\tabularnewline
+&\tabularnewline
+& find\_program(CPPCHECK cppcheck)\tabularnewline
+& add\_custom\_target(\tabularnewline
+& "\$\{ProjectId\}\_cppcheck" ALL\tabularnewline
+& COMMAND \$\{CPPCHECK\}\tabularnewline
+&
+-\/-enable=warning,performance,portability,information,missingInclude\tabularnewline
+& -\/-language=c++\tabularnewline
+& -\/-std=c++11\tabularnewline
+& -\/-error-exitcode=1\tabularnewline
+& -\/-template="{[}\{severity\}{]}{[}\{id\}{]} \{message\} \{callstack\}
+\textbackslash{}(On \{file\}:\{line\}\textbackslash{})"\tabularnewline
+& -\/-verbose\tabularnewline
+& -\/-quiet\tabularnewline
+& \$\{ALL\_SOURCE\_FILES\}\tabularnewline
+& )\tabularnewline
+& endif( UNIX )\tabularnewline
+&\tabularnewline
+& SET(ARGS\_FOR\_CHECK\_COUNT\_TESTS "")\tabularnewline
+& foreach (FILE\_ELEM \$\{ALL\_SOURCE\_FILES\})\tabularnewline
+& set(ARGS\_FOR\_CHECK\_COUNT\_TESTS
+"\$\{ARGS\_FOR\_CHECK\_COUNT\_TESTS\} \$\{FILE\_ELEM\}")\tabularnewline
+& endforeach ()\tabularnewline
+&\tabularnewline
+& add\_custom\_target("\$\{ProjectId\}\_check\_count\_tests"
+ALL\tabularnewline
+& COMMAND "\$\{Python3\_EXECUTABLE\}"\tabularnewline
+& \$\{CMAKE\_SOURCE\_DIR\}/scripts/check\_count\_tests.py\tabularnewline
+& \$\{ProjectId\}\tabularnewline
+& \$\{ARGS\_FOR\_CHECK\_COUNT\_TESTS\}\tabularnewline
+& )\tabularnewline
+& else( USE\_MPI )\tabularnewline
+& message( STATUS "-\/- \$\{ProjectId\} - NOT BUILD!" )\tabularnewline
+& endif( USE\_MPI )\tabularnewline
+\bottomrule
+\end{longtable}
+
+Файл main.cpp:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  // Copyright 2022 Korobeynikova Alisa
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+\item
+  \#include \textless{}gtest/gtest.h\textgreater{}
+\item
+\item
+  \#include \textless{}gtest-mpi-listener.hpp\textgreater{}
+\item
+\item
+  \#include "./quick\_merge\_sort.h"
+\item
+\item
+  std::vector\textless{}int\textgreater{} seqSolution(const
+  std::vector\textless{}int\textgreater{}\& m) \{
+\item
+  std::vector\textless{}int\textgreater{} seq\_sort\_res(m);
+\item
+  std::sort(seq\_sort\_res.begin(), seq\_sort\_res.end());
+\item
+  return seq\_sort\_res;
+\item
+  \}
+\item
+\item
+  void setRandomValues(std::vector\textless{}int\textgreater{} *vec) \{
+\item
+  std::random\_device dev;
+\item
+  std::mt19937 gen(dev());
+\item
+  for (int i = 0; i \textless{} vec-\textgreater{}size(); ++i) \{
+\item
+  vec-\textgreater{}at(i) = gen() \% 100;
+\item
+  \}
+\item
+  \}
+\item
+\item
+  TEST(Parallel\_Operations\_MPI, Test\_Sort) \{
+\item
+  int rank;
+\item
+  MPI\_Comm\_rank(MPI\_COMM\_WORLD, \&rank);
+\item
+\item
+  const int size = 27;
+\item
+  std::vector\textless{}int\textgreater{} global\_vec;
+\item
+\item
+  if (rank == 0) \{
+\item
+  global\_vec = IntVector(size);
+\item
+  setRandomValues(\&global\_vec);
+\item
+  \}
+\item
+  std::vector\textless{}int\textgreater{} ps = parallelSort(global\_vec,
+  size);
+\item
+\item
+  if (rank == 0) \{
+\item
+  std::vector\textless{}int\textgreater{} ss = seqSolution(global\_vec);
+\item
+  ASSERT\_EQ(ps, ss);
+\item
+  \}
+\item
+  \}
+\item
+\item
+  TEST(Parallel\_Operations\_MPI, Test\_Sort\_2) \{
+\item
+  int rank;
+\item
+  MPI\_Comm\_rank(MPI\_COMM\_WORLD, \&rank);
+\item
+\item
+  const int size = 30;
+\item
+  std::vector\textless{}int\textgreater{} global\_vec;
+\item
+\item
+  if (rank == 0) \{
+\item
+  global\_vec = IntVector(size);
+\item
+  setRandomValues(\&global\_vec);
+\item
+  \}
+\item
+  std::vector\textless{}int\textgreater{} ps = parallelSort(global\_vec,
+  size);
+\item
+\item
+  if (rank == 0) \{
+\item
+  std::vector\textless{}int\textgreater{} ss = seqSolution(global\_vec);
+\item
+  ASSERT\_EQ(ps, ss);
+\item
+  \}
+\item
+  \}
+\item
+\item
+  TEST(Parallel\_Operations\_MPI, Test\_Sort\_3) \{
+\item
+  int rank;
+\item
+  MPI\_Comm\_rank(MPI\_COMM\_WORLD, \&rank);
+\item
+\item
+  const int size = 17;
+\item
+  std::vector\textless{}int\textgreater{} global\_vec;
+\item
+\item
+  if (rank == 0) \{
+\item
+  global\_vec = IntVector(size);
+\item
+  setRandomValues(\&global\_vec);
+\item
+  \}
+\item
+  std::vector\textless{}int\textgreater{} ps = parallelSort(global\_vec,
+  size);
+\item
+\item
+  if (rank == 0) \{
+\item
+  std::vector\textless{}int\textgreater{} ss = seqSolution(global\_vec);
+\item
+  ASSERT\_EQ(ps, ss);
+\item
+  \}
+\item
+  \}
+\item
+\item
+  TEST(Parallel\_Operations\_MPI, Test\_Sort\_4) \{
+\item
+  int rank;
+\item
+  MPI\_Comm\_rank(MPI\_COMM\_WORLD, \&rank);
+\item
+\item
+  const int size = 7;
+\item
+  std::vector\textless{}int\textgreater{} global\_vec;
+\item
+\item
+  if (rank == 0) \{
+\item
+  global\_vec = IntVector(size);
+\item
+  setRandomValues(\&global\_vec);
+\item
+  \}
+\item
+  std::vector\textless{}int\textgreater{} ps = parallelSort(global\_vec,
+  size);
+\item
+\item
+  if (rank == 0) \{
+\item
+  std::vector\textless{}int\textgreater{} ss = seqSolution(global\_vec);
+\item
+  ASSERT\_EQ(ps, ss);
+\item
+  \}
+\item
+  \}
+\item
+\item
+  TEST(Parallel\_Operations\_MPI, Test\_Sort\_5) \{
+\item
+  int rank;
+\item
+  MPI\_Comm\_rank(MPI\_COMM\_WORLD, \&rank);
+\item
+\item
+  const int size = 50;
+\item
+  std::vector\textless{}int\textgreater{} global\_vec;
+\item
+\item
+  if (rank == 0) \{
+\item
+  global\_vec = IntVector(size);
+\item
+  setRandomValues(\&global\_vec);
+\item
+  \}
+\item
+  std::vector\textless{}int\textgreater{} ps = parallelSort(global\_vec,
+  size);
+\item
+\item
+  if (rank == 0) \{
+\item
+  std::vector\textless{}int\textgreater{} ss = seqSolution(global\_vec);
+\item
+  ASSERT\_EQ(ps, ss);
+\item
+  \}
+\item
+  \}
+\item
+\item
+  int main(int argc, char** argv) \{
+\item
+  ::testing::InitGoogleTest(\&argc, argv);
+\item
+  MPI\_Init(\&argc, \&argv);
+\item
+\item
+  ::testing::AddGlobalTestEnvironment(new
+  GTestMPIListener::MPIEnvironment);
+\item
+  ::testing::TestEventListeners\& listeners =
+\item
+  ::testing::UnitTest::GetInstance()-\textgreater{}listeners();
+\item
+\item
+  listeners.Release(listeners.default\_result\_printer());
+\item
+  listeners.Release(listeners.default\_xml\_generator());
+\item
+\item
+  listeners.Append(new GTestMPIListener::MPIMinimalistPrinter);
+\item
+  return RUN\_ALL\_TESTS();
+\item
+  \}
+\item
+  Файл quick\_merge\_sort.h:
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \#pragma once
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  // Copyright 2022 Korobeynikova Alisa
+\item
+  \#ifndef MODULES\_TEST\_TASKS\_TEST\_MPI\_OPS\_MPI\_H\_
+\item
+  \#define MODULES\_TEST\_TASKS\_TEST\_MPI\_OPS\_MPI\_H\_
+\item
+\item
+  \#include \textless{}random\textgreater{}
+\item
+  \#include \textless{}vector\textgreater{}
+\item
+\item
+  using IntVector = std::vector\textless{}int\textgreater{};
+\item
+  using IntVectorPtr =
+  std::shared\_ptr\textless{}IntVector\textgreater{};
+\item
+\item
+  std::vector\textless{}int\textgreater{} taskDistrib(const int
+  proc\_num, const int task\_num);
+\item
+  std::vector\textless{}int\textgreater{} parallelSort(const
+  std::vector\textless{}int\textgreater{}\& global\_vec, const int
+  elems\_num);
+\item
+\item
+  \#endif // MODULES\_TEST\_TASKS\_TEST\_MPI\_OPS\_MPI\_H\_
+\item
+  Файл quick\_merge\_sort.cpp:
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  // Copyright 2022 Korobeynikova Alisa
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \#include
+  "../../../modules/task\_3/korobeynikova\_a\_quick\_merge\_sort/quick\_merge\_sort.h"
+\item
+\item
+  \#include \textless{}mpi.h\textgreater{}
+\item
+\item
+  \#include \textless{}algorithm\textgreater{}
+\item
+  \#include \textless{}queue\textgreater{}
+\item
+  \#include \textless{}memory\textgreater{}
+\item
+  \#include \textless{}vector\textgreater{}
+\item
+\item
+  IntVector taskDistrib(const int proc\_num, const int task\_num) \{
+\item
+  IntVector task\_per\_proc(proc\_num);
+\item
+  int remained\_rows = task\_num \% proc\_num;
+\item
+  for (int proc = 0; proc \textless{} proc\_num; ++proc) \{
+\item
+  task\_per\_proc.at(proc) = task\_num / proc\_num + (remained\_rows
+  \textgreater{} 0);
+\item
+  -\/-remained\_rows;
+\item
+  \}
+\item
+  return task\_per\_proc;
+\item
+  \}
+\item
+\item
+  IntVector parallelSort(const IntVector \&global\_vec, const int
+  elems\_num) \{
+\item
+  int size, rank;
+\item
+  MPI\_Comm\_size(MPI\_COMM\_WORLD, \&size);
+\item
+  MPI\_Comm\_rank(MPI\_COMM\_WORLD, \&rank);
+\item
+\item
+  if (elems\_num == 0) \{
+\item
+  return IntVector();
+\item
+  \} else if (elems\_num == 1) \{
+\item
+  return IntVector(\{global\_vec.at(0)\});
+\item
+  \}
+\item
+\item
+  IntVector elems\_per\_process = taskDistrib(size, elems\_num);
+\item
+  if (elems\_per\_process.at(rank) == 0) \{
+\item
+  return IntVector\{\};
+\item
+  \}
+\item
+\item
+  IntVector sorted\_vec(elems\_per\_process{[}rank{]});
+\item
+  if (rank == 0) \{
+\item
+  int elems\_to\_skip = elems\_per\_process.at(0);
+\item
+  for (int proc = 1; proc \textless{} size; ++proc) \{
+\item
+  if (elems\_per\_process.at(proc) != 0) \{
+\item
+  MPI\_Send(const\_cast\textless{}int
+  *\textgreater{}(\&global\_vec.at(elems\_to\_skip)),
+\item
+  elems\_per\_process.at(proc), MPI\_INT, proc, 0, MPI\_COMM\_WORLD);
+\item
+  \}
+\item
+  elems\_to\_skip += elems\_per\_process.at(proc);
+\item
+  \}
+\item
+  \}
+\item
+\item
+  IntVector local\_vec(elems\_per\_process.at(rank));
+\item
+  if (rank == 0) \{
+\item
+  local\_vec = IntVector(global\_vec.begin(),
+\item
+  global\_vec.begin() + elems\_per\_process.at(rank));
+\item
+  \} else \{
+\item
+  MPI\_Status status;
+\item
+  MPI\_Recv(local\_vec.data(), elems\_per\_process.at(rank), MPI\_INT,
+  0, 0,
+\item
+  MPI\_COMM\_WORLD, \&status);
+\item
+  \}
+\item
+\item
+  std::sort(local\_vec.begin(), local\_vec.end());
+\item
+\item
+  if (rank == 0) \{
+\item
+  MPI\_Status status;
+\item
+  std::queue\textless{}IntVectorPtr\textgreater{} ptr\_queue;
+\item
+  ptr\_queue.push(std::make\_shared\textless{}IntVector\textgreater{}(local\_vec));
+\item
+\item
+  for (int proc = 1; proc \textless{} size; ++proc) \{
+\item
+  if (elems\_per\_process.at(proc) != 0) \{
+\item
+  ptr\_queue.push(std::make\_shared\textless{}IntVector\textgreater{}(elems\_per\_process.at(proc)));
+\item
+  MPI\_Recv(ptr\_queue.back()-\textgreater{}data(),
+  ptr\_queue.back()-\textgreater{}size(), MPI\_INT,
+\item
+  proc, 0, MPI\_COMM\_WORLD, \&status);
+\item
+  \}
+\item
+  \}
+\item
+\item
+  while (ptr\_queue.size() != 1) \{
+\item
+  IntVectorPtr f\_v\_ptr = ptr\_queue.front();
+\item
+  ptr\_queue.pop();
+\item
+  IntVectorPtr s\_v\_ptr = ptr\_queue.front();
+\item
+  ptr\_queue.pop();
+\item
+  auto temp =
+\item
+  std::make\_shared\textless{}IntVector\textgreater{}(f\_v\_ptr-\textgreater{}size()
+  + s\_v\_ptr-\textgreater{}size());
+\item
+  std::merge(f\_v\_ptr-\textgreater{}begin(),
+  f\_v\_ptr-\textgreater{}end(), s\_v\_ptr-\textgreater{}begin(),
+\item
+  s\_v\_ptr-\textgreater{}end(), temp-\textgreater{}begin());
+\item
+  ptr\_queue.push(temp);
+\item
+  \}
+\item
+  return *ptr\_queue.back();
+\item
+  \} else \{
+\item
+  MPI\_Send(local\_vec.data(), local\_vec.size(), MPI\_INT, 0, 0,
+  MPI\_COMM\_WORLD);
+\item
+  \}
+\item
+  return local\_vec;
+\item
+  \}
+\item
+\end{enumerate}
+
+\end{document}
